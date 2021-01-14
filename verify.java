@@ -10,14 +10,29 @@ import java.security.cert.CertificateFactory;
 public class verify {
   public static void main(String[] args) {
 
-    String baseFile="DocSignedTeste.txt";
-    String certificateFile="SAS_Yeda.crt";
+    // Base file path where the signed document is located
+    String baseFile;
+    // The certificate file path (.crt file)
+    String certificateFile;;
+    // The document name to be generated
     String documentName;
+    // Algorithm used
     String algorithm;
+    // Hash used
     String hash;
+    // Who signed the document
     String signedBy;
+    // Document content
     byte[] documentContent;
+    // Signature content
     byte[] signature;
+
+    System.out.println("Insert the file path where data signed is located(example: nossosNomes.txt -- if is in the same path as the jar file");
+    Scanner s = new Scanner(System.in);
+    baseFile = s.nextLine();
+    System.out.println("Insert the file path where the certificate is located(example: MyCertificate.crt -- if is in the same path as the jar file");
+    certificateFile = s.nextLine();
+    s.close();
 
     try {
       File doc = new File(baseFile);
@@ -51,13 +66,16 @@ public class verify {
       InputStream inStream = new FileInputStream(certificateFile);
       CertificateFactory cf = CertificateFactory.getInstance("X.509");
       X509Certificate cert = (X509Certificate)cf.generateCertificate(inStream);
+      // Get who signed the certificate
       String CN = cert.getSubjectX500Principal().getName();
       int delimiterPosition = CN.indexOf(",");
       CN = String.copyValueOf(CN.toCharArray(), 3, delimiterPosition-3);
+      // Verify if is the same to the document
       if(!CN.equals(signedBy)) {
         System.out.println("Erro no assinante do certificado(CN)");
         return;
       }
+      // Verifying the signature
       Signature signatureVerify = Signature.getInstance(hash+"with"+algorithm);
       signatureVerify.initVerify(cert.getPublicKey());
       signatureVerify.update(documentContent);
