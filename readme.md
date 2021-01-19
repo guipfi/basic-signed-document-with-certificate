@@ -19,7 +19,7 @@ exemplo.txt
 Texto exemplo para assinatura.  
 
 **Para executar o signDocument.jar:**  
-java -jar signDocument.jar  
+java -jar signDocument.jar     
 
 **Para assinar o documento será requisitado:**
 1. O file path do arquivo a ser assinado
@@ -29,10 +29,10 @@ java -jar signDocument.jar
 3. Senha da chave privada
     exemplo: “Seguranca”(para o meu certificado)
 Com isso, será gerado um arquivo com a assinatura que contém <nome do
-documento>-signed.txt(exemplo: nossosNomes-signed.txt).
+documento>-signed.txt(exemplo: nossosNomes-signed.txt).  
 
-**Para fazer o processo de verificação, é necessário executar o verifySignature.jar**
-java -jar verifySignature.jar
+**Para fazer o processo de verificação, é necessário executar o verifySignature.jar**  
+java -jar verifySignature.jar    
 
 **Na verificação do documento será requisitado:**
 1. O file path do arquivo assinado
